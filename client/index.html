@@ -41,32 +41,6 @@
         id="js-overlay"
       >
         <aside id="js-sheet">
-          <section>
-            <div class="section-title">
-              Your stats
-            </div>
-            <div class="info">
-              <span v-for="i in me.health" v-if="me.health > 0">❤️</span>
-              <span v-if="me.health <= 0"
-                >Killed by {{ getPlayerFromCode(me.killer).country }}</span
-              >
-            </div>
-            <div class="info" v-if="me.health > 0">
-              {{ me.funds }} &times; <span>💷</span>
-            </div>
-          </section>
-          <section>
-            <div class="section-title">
-              Cell ({{ selectedCell.x }}, {{ selectedCell.y }})
-            </div>
-            <button
-              :disabled="!canAct || !canMoveTo(selectedCell.x, selectedCell.y)"
-              v-if="me.health > 0"
-              @click="move(selectedCell)"
-            >
-              Move (1 &times; 💷)
-            </button>
-          </section>
           <section v-for="player in selectedPlayers">
             <div class="section-title">
               <div
@@ -96,6 +70,32 @@
             >
               Shoot (1 &times; 💷)
             </button>
+          </section>
+          <section>
+            <div class="section-title">
+              Cell ({{ selectedCell.x }}, {{ selectedCell.y }})
+            </div>
+            <button
+              :disabled="!canAct || !canMoveTo(selectedCell.x, selectedCell.y)"
+              v-if="me.health > 0"
+              @click="move(selectedCell)"
+            >
+              Move (1 &times; 💷)
+            </button>
+          </section>
+          <section>
+            <div class="section-title">
+              Your stats
+            </div>
+            <div class="info">
+              <span v-for="i in me.health" v-if="me.health > 0">❤️</span>
+              <span v-if="me.health <= 0"
+                >Killed by {{ getPlayerFromCode(me.killer).country }}</span
+              >
+            </div>
+            <div class="info" v-if="me.health > 0">
+              {{ me.funds }} &times; <span>💷</span>
+            </div>
           </section>
         </aside>
       </div>
