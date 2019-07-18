@@ -41,6 +41,7 @@ function loadInstance() {
   if (exists) {
     const instance = JSON.parse(fs.readFileSync(FILENAME, "utf8"));
     if (!instance.version) {
+      instance.version = 0;
       archiveInstance(instance);
     }
     return instance;
