@@ -1,7 +1,6 @@
 :root {
   --cell-spacing: 3px;
   --cell-size: 40px;
-  --cell-curve: 4px;
 
   --cell-colour: #ffffffc3;
   --cell-canmove: #a2fcffd3;
@@ -35,14 +34,14 @@ button {
   color: white;
   font-weight: bold;
   padding: 12px 16px;
-  border-radius: var(--cell-curve);
+  border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .info {
   font-weight: bold;
   padding: 12px 16px;
-  border-radius: var(--cell-curve);
+  border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.25);
   text-align: center;
 }
@@ -109,7 +108,7 @@ section .info {
   height: 25px;
   background-size: cover;
   background-position: center;
-  border-radius: var(--cell-curve);
+  border-radius: 4px;
   margin-right: 10px;
   position: relative;
   top: -1px;
@@ -169,7 +168,6 @@ main {
 .map-cell {
   width: var(--cell-size);
   height: var(--cell-size);
-  border-radius: var(--cell-curve);
   background-color: var(--cell-colour);
   border: 1px solid rgba(0, 0, 0, 0.2);
   transition: background 250ms cubic-bezier(0.455, 0.03, 0.515, 0.955),
@@ -190,10 +188,6 @@ main {
 .map-cell__canmove {
   background-color: var(--cell-canmove);
 }
-
-/* .map-cell:hover {
-  transform: scale(1.1);
-} */
 
 .map-cell__selected {
   transform: scale(1.3);
