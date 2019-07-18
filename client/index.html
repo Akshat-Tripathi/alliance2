@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Alliance</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="js-game" v-cloak v-if="ready">
+      <main>
+        <div
+          class="background-flag"
+          :style="{ backgroundImage: getFlagUrl(me.code) }"
+        ></div>
+        <div class="map">
+          <div class="map-row" v-for="row in config.Board.Height">
+            <div
+              class="map-cell"
+              v-for="col in config.Board.Width"
+              :class="{ 'map-cell__selected': isCellSelected(col, row) && sheetOpen, 'map-cell__occupied': playersInCell(col, row).length > 0, 'map-cell__canmove': cellInRange(col, row) && me.health > 0, 'map-cell__me': cellsAreEqual(me.position, {x: col, y: row}) && me.health > 0 }"
+              :style="{ backgroundImage: playersInCell(col, row).length == 1 ? getFlagUrl(playersInCell(col, row)[0].code) : '' }"
+              @click="getClickHandler(col, row)"
+            >
+              <div class="map-cell-text">
+                {{
+                  playersInCell(col, row).length > 1
+                    ? playersInCell(col, row).length
+                    : ""
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div
+        class="overlay"
+        :class="{'overlay--hidden': !sheetOpen }"
+        @click.self="sheetOpen = false"
+        id="js-overlay"
+      >
+        <aside id="js-sheet">
+          <section>
+            <div class="section-title">
+              Your stats
+            </div>
+            <div class="info">
+              <span v-for="i in me.health" v-if="me.health > 0">❤️</span>
+              <span v-if="me.health <= 0"
+                >Killed by {{ getPlayerFromCode(me.killer).country }}</span
+              >
+            </div>
+            <div class="info" v-if="me.health > 0">
+              {{ me.funds }} &times; <span>💷</span>
+            </div>
+          </section>
+          <section>
+            <div class="section-title">
+              Cell ({{ selectedCell.x }}, {{ selectedCell.y }})
+            </div>
+            <button
+              :disabled="!canAct || !canMoveTo(selectedCell.x, selectedCell.y)"
+              v-if="me.health > 0"
+              @click="move(selectedCell)"
+            >
+              Move (1 &times; 💷)
+            </button>
+          </section>
+          <section v-for="player in selectedPlayers">
+            <div class="section-title">
+              <div
+                class="section-country"
+                :style="{ backgroundImage: getFlagUrl(player.code) }"
+              ></div>
+              {{ player.country }} {{ isThisPlayer(player) ? "(you)" : "" }}
+            </div>
+            <button
+              :disabled="!canUpgrade"
+              v-if="isThisPlayer(player) && me.health > 0"
+              @click="upgradeRange()"
+            >
+              Increase range ({{ config.Range.UpgradeCost }} &times; 💷)
+            </button>
+            <button
+              :disabled="!selectedCellInRange || !canAct"
+              v-if="!isThisPlayer(player) && me.health > 0"
+              @click="gift(player.code)"
+            >
+              Gift (1 &times; 💷)
+            </button>
+            <button
+              :disabled="!selectedCellInRange || !canAct"
+              v-if="!isThisPlayer(player) && me.health > 0"
+              @click="fireAt(player.code)"
+            >
+              Shoot (1 &times; 💷)
+            </button>
+          </section>
+        </aside>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

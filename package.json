@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "config.ini": "^0.0.55",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "node-cron": "^2.0.3",
+    "socket.io": "^2.2.0",
+    "svg-country-flags": "^1.2.6",
+    "vue": "^2.6.10"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "build": "parcel build client/index.html"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.6.1",
+    "css-variables": "^0.1.7",
+    "parcel-bundler": "^1.12.3",
+    "postcss-css-variables": "^0.13.0",
+    "postcss-modules": "^1.4.1"
+  },
+  "alias": {
+    "vue": "./node_modules/vue/dist/vue.common.js"
+  }
+}
