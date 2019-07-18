@@ -6,6 +6,16 @@ const cron = require("node-cron");
 const game = require("./game");
 
 const app = express();
+app.set("trust proxy", 1);
+app.use(
+  require("helmet")({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"]
+      }
+    }
+  })
+);
 app.use(require("body-parser").json());
 app.use(require("body-parser").urlencoded({ extended: true }));
 app.use(require("cookie-parser")(serverConfig.Server.CookieSecret));
