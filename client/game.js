@@ -64,9 +64,14 @@ const app = new Vue({
       );
     },
     canMoveTo(x, y) {
+      //Check to see if the cell is above, below, left or right
+      leftright = distance(this.me.position, { x, y }) == this.config.Range.MoveDistance;
+      //Check to see if the cell is diagonal
+      diagonal = distance(this.me.position, { x, y }).toFixed(3) == (Math.sqrt(2)*this.config.Range.MoveDistance).toFixed(3);
+      //Check if the player is still alive
+      alive = this.me.health > 0;
       return (
-        distance(this.me.position, { x, y }) ==
-          this.config.Range.MoveDistance && this.me.health > 0
+        (leftright || diagonal) && alive
       );
     },
     isThisPlayer(player) {
