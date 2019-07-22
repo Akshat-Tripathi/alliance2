@@ -111,6 +111,7 @@ io.on("connection", socket => {
       player.health <= 0 ||
       player.funds < 1 ||
       game.distance(player.position, { x, y }) > gameConfig.Range.MoveDistance
+      (game.distance(player.position, { x, y })).toFixed(3) == (sqrt(2) * gameConfig.Range.MoveDistance).toFixed(3)
     )
       return;
 
