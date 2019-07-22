@@ -64,10 +64,11 @@ const app = new Vue({
       );
     },
     canMoveTo(x, y) {
-      return (
-        distance(this.me.position, { x, y }) ==
-          this.config.Range.MoveDistance && this.me.health > 0
-      );
+      //checks if you can move forwards
+      straight = distance(this.me.position, { x, y }) == this.config.Range.MoveDistance
+      //checks if you can move diagonally
+      diagonal = (distance(this.me.position, { x, y })).toFixed(3) == (sqrt(2) * this.config.Range.MoveDistance).toFixed(3)
+      return (straight || diagonal) && player.health>0;
     },
     isThisPlayer(player) {
       return player.id == this.playerId;
